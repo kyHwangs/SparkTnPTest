@@ -1,0 +1,67 @@
+{
+    "type": "trig",
+    "efficiencies": [
+        ["IsoMu24_or_IsoTkMu24_or_Mu50_or_TkMu50", "CutBasedIdTight_and_PFIsoTight"],
+        ["IsoMu24_or_IsoTkMu24_or_Mu50_or_TkMu50", "CutBasedIdMedium_and_PFIsoMedium"],
+        ["IsoMu24_or_IsoTkMu24", "CutBasedIdTight_and_PFIsoTight"],
+        ["IsoMu24_or_IsoTkMu24", "CutBasedIdMedium_and_PFIsoMedium"]
+    ],
+    "selection": "probe_pt > 26 and tag_isTight == 1 and tag_hltL3crIsoL1sMu22L1f0L2f10QL3f24QL3trkIsoFiltered0p09 == 1 and tag_pt > 26 and tag_abseta < 2.4 and pair_dR > 0.3",
+    "definitions": {
+        "CutBasedIdTight_and_PFIsoTight": "probe_CutBasedIdTight == 1 and probe_PFIsoTight == 1",
+        "CutBasedIdMedium_and_PFIsoMedium": "probe_CutBasedIdMedium == 1 and probe_PFIsoMedium == 1",
+        "IsoMu24_or_IsoTkMu24_or_Mu50_or_TkMu50": "probe_hltL3crIsoL1sMu22L1f0L2f10QL3f24QL3trkIsoFiltered0p09 == 1 or probe_hltL3fL1sMu22L1f0Tkf24QL3trkIsoFiltered0p09 == 1 or probe_hltL3fL1sMu22Or25L1f0L2f10QL3Filtered50Q == 1 or probe_hltL3fL1sMu25f0TkFiltered50Q == 1",
+        "IsoMu24_or_IsoTkMu24": "probe_hltL3crIsoL1sMu22L1f0L2f10QL3f24QL3trkIsoFiltered0p09 == 1 or probe_hltL3fL1sMu22L1f0Tkf24QL3trkIsoFiltered0p09 == 1",
+        "probe_abseta": "abs(probe_eta)",
+        "tag_abseta": "abs(tag_eta)"
+    },
+    "binning": {
+        "pt": [26, 30, 40, 50, 60, 120, 200],
+        "abseta": [0, 0.9, 1.2, 2.1, 2.4],
+        "eta": [-2.4, -2.1, -1.2, -0.9, 0, 0.9, 1.2, 2.1, 2.4],
+        "charge": [-2,0,2],
+        "nvtx": "np.array(range(0,30+1))*2 + 0.5",
+        "mass": "np.array(range(60*4, 140*4+1)) * 0.25",
+        "mcMass": "np.array(range(60*4, 140*4+1)) * 0.25"
+    },
+    "variables": {
+        "pt": {"variable": "probe_pt", "pretty": "p_{T} (GeV)"},
+        "abseta": {"variable": "probe_abseta", "pretty": "|#eta|"},
+        "eta": {"variable": "probe_eta", "pretty": "#eta"},
+        "charge": {"variable": "probe_charge", "pretty": "charge"},
+        "nvtx": {"variable": "nVertices", "pretty": "Number of primary vertices"},
+        "mass": {"variable": "pair_mass", "pretty": "m(#mu#mu) (GeV)"},
+        "mcMass": {"variable": "genMassFSfromHP", "pretty": "m(#mu#mu) (GeV)"}
+    },
+    "fitVariable": "mass",
+    "fitVariableGen": "mcMass",
+    "binVariables": [
+        ["eta", "pt"],
+        ["charge", "eta", "pt"],
+        ["abseta", "pt"],
+        ["charge", "abseta", "pt"]
+    ],
+    "shifts": {
+    },
+    "fitShifts": {
+        "AltSig": {"fitType": "AltSig"},
+        "massBinUp": {"shiftType": "massBinUp"},
+        "massBinDown": {"shiftType": "massBinDown"},
+        "massRangeUp": {"shiftType": "massRangeUp"},
+        "massRangeDown": {"shiftType": "massRangeDown"}
+    },
+    "systematics" : {
+        "SF": {
+            "fitTypes": ["AltSig"],
+            "shiftTypes": ["massBin", "massRange"]
+        },
+        "dataEff": {
+            "fitTypes": ["AltSig"],
+            "shiftTypes": ["massBin", "massRange"]
+        },
+        "mcEff": {
+            "fitTypes": [],
+            "shiftTypes": ["massRange"]
+        }
+    }
+}
