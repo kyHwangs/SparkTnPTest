@@ -1,10 +1,7 @@
 {   
     "type": "trig",
     "efficiencies": [
-        ["IsoMu24_or_Mu50", "CutBasedIdTight_and_PFIsoTight"],
-        ["IsoMu24_or_Mu50", "CutBasedIdMedium_and_PFIsoMedium"],
-        ["IsoMu24", "CutBasedIdTight_and_PFIsoTight"],
-        ["IsoMu24", "CutBasedIdMedium_and_PFIsoMedium"]
+        ["IsoMu24", "CutBasedIdTight_and_PFIsoTight"]
     ],
     "selection": "probe_pt > 26 and tag_isTight == 1 and tag_hltL3crIsoL1sSingleMu22L1f0L2f10QL3f24QL3trkIsoFiltered0p07 == 1 and tag_pt > 26 and tag_abseta < 2.4 and pair_dR > 0.3",
     "definitions": {
